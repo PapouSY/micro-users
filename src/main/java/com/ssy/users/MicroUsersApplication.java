@@ -19,10 +19,7 @@ public class MicroUsersApplication {
         SpringApplication.run(MicroUsersApplication.class, args);
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
 
    /* @PostConstruct
