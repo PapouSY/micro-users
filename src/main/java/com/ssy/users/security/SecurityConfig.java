@@ -22,8 +22,11 @@ public class SecurityConfig {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(requests -> requests.requestMatchers("/login").permitAll()
+                        .requestMatchers("/all").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated())
-                .addFilterBefore(new JWTAuthenticationFilter(authMgr), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JWTAuthenticationFilter(authMgr), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthorizationFilter(),
+                        UsernamePasswordAuthenticationFilter.class);
                 return http.build();
     }
 }
